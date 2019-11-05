@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String image[] = {"Cat", "Dog", "Lion", "Hamster", "Tiger",};
     int imageValue[] = {R.drawable.cat, R.drawable.dog, R.drawable.lion, R.drawable.hamster, R.drawable.tiger};
     Map<String, Integer> imageMap;
+    final List<Details> detailsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
         );
         spinImage.setAdapter(imageAdapter);
 
+        spinImage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String imagePos = parent.getItemAtPosition(position).toString();
+
+                imageId = imageMap.get(imagePos);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,21 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (selectedId == R.id.rdOthers) {
                     gender = "O";
                 }
-
-                spinImage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String imagePos = parent.getItemAtPosition(position).toString();
-
-                        imageId = imageMap.get(imagePos);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                List<Details> detailsList = new ArrayList<>();
 
                 detailsList.add(new Details(name, gender, age, imageId, R.drawable.delete));
 
